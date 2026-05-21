@@ -10,7 +10,7 @@ const requirements = [
 ];
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', username: '', password: '', confirm: '' });
+  const [form, setForm] = useState({ name: '', username: '', email: '', password: '', confirm: '' });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,8 +21,13 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (!form.name.trim() || !form.username.trim() || !form.password || !form.confirm) {
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
+    if (!form.name.trim() || !form.username.trim() || !form.email.trim() || !form.password || !form.confirm) {
       setError('Please fill in all fields');
+      return;
+    }
+    if (!emailValid) {
+      setError('Please enter a valid email address');
       return;
     }
     if (form.username.trim().length < 3) {
@@ -39,7 +44,7 @@ export default function Register() {
     }
     setLoading(true);
     try {
-      const user = await register(form.username.trim(), form.password, form.name.trim());
+      const user = await register(form.username.trim(), form.password, form.name.trim(), form.email.trim());
       addToast(`Account created! Welcome, ${user.name}! 🎉`);
       navigate('/');
     } catch (err) {
@@ -128,6 +133,14 @@ export default function Register() {
                   placeholder="your_username"
                   className="w-full pl-8 pr-4 py-3.5 rounded-2xl bg-white border border-surface text-sm focus:outline-none focus:border-accent transition-colors" />
               </div>
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-semibold text-charcoal mb-2">Email Address</label>
+              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+                placeholder="you@example.com"
+                className="w-full px-4 py-3.5 rounded-2xl bg-white border border-surface text-sm focus:outline-none focus:border-accent transition-colors" />
             </div>
 
             {/* Password */}

@@ -18,19 +18,19 @@ export function AuthProvider({ children }) {
     const users = JSON.parse(localStorage.getItem('shopwave_users') || '[]');
     const found = users.find(u => u.username === username && u.password === password);
     if (!found) throw new Error('Invalid username or password');
-    const session = { username: found.username, name: found.name };
+    const session = { username: found.username, name: found.name, email: found.email };
     setUser(session);
     localStorage.setItem('shopwave_session', JSON.stringify(session));
     return session;
   };
 
-  const register = async (username, password, name) => {
+  const register = async (username, password, name, email) => {
     const users = JSON.parse(localStorage.getItem('shopwave_users') || '[]');
     if (users.find(u => u.username === username)) throw new Error('Username already exists');
-    const newUser = { username, password, name };
+    const newUser = { username, password, name, email };
     users.push(newUser);
     localStorage.setItem('shopwave_users', JSON.stringify(users));
-    const session = { username, name };
+    const session = { username, name, email };
     setUser(session);
     localStorage.setItem('shopwave_session', JSON.stringify(session));
     return session;

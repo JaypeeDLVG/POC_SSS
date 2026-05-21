@@ -1,17 +1,21 @@
 import React from 'react';
 import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { useToast } from './Toast';
 
 export default function CartSidebar() {
   const { cart, cartOpen, setCartOpen, updateQty, removeFromCart, clearCart, total } = useCart();
+  const { user } = useAuth();
   const { addToast } = useToast();
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
+    const email = user?.email || 'your email address';
+    const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
     clearCart();
     setCartOpen(false);
-    addToast('Order placed successfully! Thank you. 🎉');
+    addToast(`Order placed successfully! A summary of your ${itemCount} item order totaling $${total.toLocaleString()} will be sent to ${email}. 🎉`);
   };
 
   return (
