@@ -9,5 +9,6 @@ java -jar target/shopwave-backend-1.0.0.jar
 Terminal 2 — Frontend
 cd shopwave/frontend
 npm install
+npm run dev - after
 npm start
 → http://localhost:3000
