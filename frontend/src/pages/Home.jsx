@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Zap, Shield, Truck } from 'lucide-react';
 import { carouselSlides, products, categories } from '../data/products';
 import ProductCard from '../components/ProductCard';
+
 
 export default function Home() {
   const [current, setCurrent] = useState(0);
@@ -121,7 +122,7 @@ export default function Home() {
             { icon: Shield, text: '2-Year Warranty' },
             { icon: Zap, text: '24/7 Support' },
           ].map(({ icon: Icon, text }) => (
-            <div key={text} className="flex items-center gap-2.5 text-white/70">
+            <div key={text} className="flex items-center gap-2.5 text-black/70">
               <Icon size={16} style={{ color: '#C9A84C' }} />
               <span className="text-sm font-medium">{text}</span>
             </div>
@@ -145,17 +146,17 @@ export default function Home() {
           {[
             {
               id: 'phones', label: 'Phones', count: products.filter(p => p.category === 'phones').length,
-              img: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80',
+              img: '/images/phones.jpg',
               color: '#1C1C1E'
             },
             {
               id: 'laptops', label: 'Laptops', count: products.filter(p => p.category === 'laptops').length,
-              img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80',
+              img: '/images/laptop.jpg',
               color: '#2D2D30'
             },
             {
               id: 'monitors', label: 'Monitors', count: products.filter(p => p.category === 'monitors').length,
-              img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80',
+              img: '/images/monitor.png',
               color: '#1A1A2E'
             },
           ].map((cat) => (
