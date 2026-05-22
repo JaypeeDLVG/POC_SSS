@@ -10,6 +10,7 @@ import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Orders from './pages/Orders';
 
 function ProtectedRoute({ children }) {
@@ -26,7 +27,7 @@ function ProtectedRoute({ children }) {
 function Layout() {
   const { user } = useAuth();
   const location = useLocation();
-  const hideNav = location.pathname === '/login' || location.pathname === '/register';
+  const hideNav = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/forgot-password';
 
   return (
     <div className="min-h-screen bg-cream">
@@ -38,6 +39,7 @@ function Layout() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -134,6 +134,10 @@ export default function ProductDetail() {
               style={{ background: '#1C1C1E', color: '#FAF8F5' }}>
               <ShoppingBag size={18} />
               Add to Cart — ₱{(product.price * qty).toLocaleString()}
+            </button>
+
+            {/* Trust signals */}
+            <div className="grid grid-cols-3 gap-3 pt-6 border-t border-surface">
               {[
                 { icon: Truck, label: 'Free Shipping', sub: 'Orders over ₱5,500' },
                 { icon: Shield, label: '2-Year Warranty', sub: 'Full coverage' },

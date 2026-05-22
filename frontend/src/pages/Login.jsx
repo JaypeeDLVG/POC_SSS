@@ -121,6 +121,16 @@ export default function Login() {
                   {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
+              <div className="mt-3 flex items-center justify-between text-sm">
+                <span className="text-muted">Trouble signing in?</span>
+                <button
+                  type="button"
+                  onClick={() => navigate('/forgot-password')}
+                  className="font-semibold text-accent transition-colors hover:text-charcoal"
+                >
+                  Forgot password?
+                </button>
+              </div>
             </div>
 
             {/* Error */}
