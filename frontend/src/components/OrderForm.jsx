@@ -176,6 +176,8 @@ export default function OrderForm({ total, cart, onClose, onBack, onSubmit }) {
                         </div>
                     </div>
 
+                    <div className="border-b border-surface/70" />
+
                     {/* Personal Information */}
                     <div className="space-y-4">
                         <h3 className="font-semibold text-charcoal">Delivery Information</h3>
@@ -253,23 +255,25 @@ export default function OrderForm({ total, cart, onClose, onBack, onSubmit }) {
                         </div>
                     </div>
 
+                    <div className="border-b border-surface/70" />
+
                     {/* Credit Card Information */}
                     <div className="space-y-4">
                             <div className="flex items-center gap-2">
                                 <CreditCard size={18} className="text-accent" />
-                                <h3 className="font-semibold text-charcoal">Payment Information</h3>
+                                <h3 className="font-semibold text-charcoal">Payment Method</h3>
                             </div>
 
                             <div className="mt-2 flex gap-2 items-center">
-                                <label className={`px-4 py-2 rounded-lg border flex items-center gap-2 transition-all ${formData.paymentMethod==='card' ? 'border-accent bg-accent/10 scale-105 shadow-md' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm'} cursor-pointer`}>
+                                <label className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-2 min-w-[110px] justify-center transition-all text-xs ${formData.paymentMethod==='card' ? 'border-accent bg-accent/30 text-accent shadow-sm ring-1 ring-accent/40' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm text-charcoal'} cursor-pointer`}>
                                     <input type="radio" name="paymentMethod" value="card" checked={formData.paymentMethod==='card'} onChange={handleChange} className="sr-only" aria-checked={formData.paymentMethod==='card'} />
                                     <span className={`${formData.paymentMethod==='card' ? 'font-semibold' : 'font-medium'}`}>Pay by Card</span>
                                 </label>
-                                <label className={`px-4 py-2 rounded-lg border flex items-center gap-2 transition-all ${formData.paymentMethod==='cod' ? 'border-accent bg-accent/10 scale-105 shadow-md' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm'} cursor-pointer`}>
+                                <label className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-2 min-w-[130px] justify-center transition-all text-xs ${formData.paymentMethod==='cod' ? 'border-accent bg-accent/30 text-accent shadow-sm ring-1 ring-accent/40' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm text-charcoal'} cursor-pointer`}>
                                     <input type="radio" name="paymentMethod" value="cod" checked={formData.paymentMethod==='cod'} onChange={handleChange} className="sr-only" aria-checked={formData.paymentMethod==='cod'} />
                                     <span className={`${formData.paymentMethod==='cod' ? 'font-semibold' : 'font-medium'}`}>Cash on Delivery</span>
                                 </label>
-                                <label className={`px-4 py-2 rounded-lg border flex items-center gap-2 transition-all ${formData.paymentMethod==='instore' ? 'border-accent bg-accent/10 scale-105 shadow-md' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm'} cursor-pointer`}>
+                                <label className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-2 min-w-[110px] justify-center transition-all text-xs ${formData.paymentMethod==='instore' ? 'border-accent bg-accent/30 text-accent shadow-sm ring-1 ring-accent/40' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm text-charcoal'} cursor-pointer`}>
                                     <input type="radio" name="paymentMethod" value="instore" checked={formData.paymentMethod==='instore'} onChange={handleChange} className="sr-only" aria-checked={formData.paymentMethod==='instore'} />
                                     <span className={`${formData.paymentMethod==='instore' ? 'font-semibold' : 'font-medium'}`}>Pay In-Store</span>
                                 </label>
@@ -342,15 +346,15 @@ export default function OrderForm({ total, cart, onClose, onBack, onSubmit }) {
 
                             {formData.paymentMethod === 'cod' && (
                                 <div className="mt-4 p-3 bg-surface/50 rounded-lg">
-                                    <div className="text-sm font-medium mb-2">Cash on Delivery delivery address</div>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <label className={`px-3 py-2 rounded-lg border flex-1 text-center transition-all ${codDelivery.codUseSameAddress ? 'border-accent bg-accent/10 shadow-md' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm'} cursor-pointer`}>
+                                    <div className="text-sm font-medium mb-2">Delivery Address</div>
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <label className={`px-2.5 py-1.5 rounded-lg border flex-1 text-center transition-all text-sm ${codDelivery.codUseSameAddress ? 'border-accent bg-accent/30 text-accent shadow-sm ring-1 ring-accent/40' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm text-charcoal'} cursor-pointer`}>
                                             <input type="radio" name="codUseSameAddress" value="true" checked={codDelivery.codUseSameAddress === true} onChange={handleCodDeliveryChange} className="sr-only" />
                                             Use address above
                                         </label>
-                                        <label className={`px-3 py-2 rounded-lg border flex-1 text-center transition-all ${codDelivery.codUseSameAddress === false ? 'border-accent bg-accent/10 shadow-md' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm'} cursor-pointer`}>
+                                        <label className={`px-2.5 py-1.5 rounded-lg border flex-1 text-center transition-all text-sm ${codDelivery.codUseSameAddress === false ? 'border-accent bg-accent/30 text-accent shadow-sm ring-1 ring-accent/40' : 'border-surface bg-surface/50 hover:scale-105 hover:shadow-sm text-charcoal'} cursor-pointer`}>
                                             <input type="radio" name="codUseSameAddress" value="false" checked={codDelivery.codUseSameAddress === false} onChange={handleCodDeliveryChange} className="sr-only" />
-                                            Deliver to a different address
+                                            Use Different address
                                         </label>
                                     </div>
 
