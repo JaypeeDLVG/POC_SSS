@@ -65,7 +65,7 @@ export default function ProductCard({ product, delay = 0 }) {
 
             {/* Price + Add */}
             <div className="flex items-center justify-between">
-              <span className="font-display font-bold text-xl text-charcoal">${product.price.toLocaleString()}</span>
+              <span className="font-display font-bold text-xl text-charcoal">₱{product.price.toLocaleString()}</span>
               <button
                 onClick={handleAdd}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold btn-shimmer transition-all duration-300 active:scale-95"

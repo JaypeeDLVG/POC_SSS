@@ -26,9 +26,51 @@ export default function CartSidebar() {
     const email = user?.email || 'your email address';
     const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
+    // build order record
+    const order = {
+      id: Date.now(),
+      items: cart,
+      total,
+      itemCount,
+      date: new Date().toISOString(),
+      email,
+      paymentMethod: orderData.paymentMethod || 'card'
+    };
+
+    // build shipping info; if COD with alternate delivery, use delivery fields
+    const useAlternateDelivery = orderData.paymentMethod === 'cod' && orderData.codUseSameAddress === false;
+    order.shipping = {
+      name: orderData.name,
+      country: useAlternateDelivery ? orderData.deliveryCountry : orderData.country,
+      city: useAlternateDelivery ? orderData.deliveryCity : orderData.city,
+      address: useAlternateDelivery ? orderData.deliveryAddress : orderData.address,
+      houseNumber: useAlternateDelivery ? orderData.deliveryHouseNumber : orderData.houseNumber,
+    };
+    // include in-store reference for in-store payments
+    if (orderData.paymentMethod === 'instore' && orderData.instoreRef) {
+      order.instoreRef = orderData.instoreRef;
+    }
+
+    // persist order per-user
+    try {
+      if (user && user.username) {
+        const ordersKey = `shopwave_orders_${user.username}`;
+        const existing = JSON.parse(localStorage.getItem(ordersKey) || '[]');
+        existing.unshift(order);
+        localStorage.setItem(ordersKey, JSON.stringify(existing));
+
+        // notify other parts of the app
+        try { window.dispatchEvent(new CustomEvent('ordersUpdated', { detail: order })); } catch (e) { /* ignore */ }
+      }
+    } catch (e) {
+      // ignore storage errors
+      // eslint-disable-next-line no-console
+      console.warn('Failed to save order', e);
+    }
+
     clearCart();
     setShowOrderForm(false);
-    setSuccessOrder(orderData);
+    setSuccessOrder(order);
   };
 
   const handleSuccessClose = () => {
@@ -108,7 +150,7 @@ export default function CartSidebar() {
                     className="w-16 h-16 rounded-xl object-cover flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm text-charcoal line-clamp-1">{item.name}</p>
-                    <p className="text-accent font-bold text-sm mt-0.5">${item.price.toLocaleString()}</p>
+                    <p className="text-accent font-bold text-sm mt-0.5">₱{item.price.toLocaleString()}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button onClick={() => updateQty(item.id, item.qty - 1)}
                         className="w-6 h-6 rounded-full bg-surface hover:bg-surface flex items-center justify-center transition-colors">
@@ -135,7 +177,7 @@ export default function CartSidebar() {
             <div className="p-6 border-t border-surface space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-muted text-sm">Subtotal</span>
-                <span className="font-bold text-lg font-display">${total.toLocaleString()}</span>
+                <span className="font-bold text-lg font-display">₱{total.toLocaleString()}</span>
               </div>
               <button onClick={handleCheckout}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold btn-shimmer transition-all duration-300"

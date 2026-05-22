@@ -118,7 +118,7 @@ export default function Home() {
       <section className="py-4 bg-charcoal">
         <div className="flex flex-wrap items-center justify-center gap-8 px-6 mx-auto max-w-7xl sm:gap-16">
           {[
-            { icon: Truck, text: 'Free Shipping Over $99' },
+            { icon: Truck, text: 'Free Shipping Over ₱5,500' },
             { icon: Shield, text: '2-Year Warranty' },
             { icon: Zap, text: '24/7 Support' },
           ].map(({ icon: Icon, text }) => (

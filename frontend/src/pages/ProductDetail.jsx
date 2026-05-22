@@ -102,10 +102,10 @@ export default function ProductDetail() {
             {/* Price */}
             <div className="flex items-baseline gap-2 mb-8">
               <span className="font-display text-4xl font-bold text-charcoal">
-                ${product.price.toLocaleString()}
+                ₱{product.price.toLocaleString()}
               </span>
               <span className="text-muted text-sm line-through">
-                ${Math.round(product.price * 1.15).toLocaleString()}
+                ₱{Math.round(product.price * 1.15).toLocaleString()}
               </span>
               <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">
                 Save 15%
@@ -133,13 +133,9 @@ export default function ProductDetail() {
               className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl font-semibold text-base btn-shimmer transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] mb-4"
               style={{ background: '#1C1C1E', color: '#FAF8F5' }}>
               <ShoppingBag size={18} />
-              Add to Cart — ${(product.price * qty).toLocaleString()}
-            </button>
-
-            {/* Trust signals */}
-            <div className="grid grid-cols-3 gap-3 pt-6 border-t border-surface">
+              Add to Cart — ₱{(product.price * qty).toLocaleString()}
               {[
-                { icon: Truck, label: 'Free Shipping', sub: 'Orders over $99' },
+                { icon: Truck, label: 'Free Shipping', sub: 'Orders over ₱5,500' },
                 { icon: Shield, label: '2-Year Warranty', sub: 'Full coverage' },
                 { icon: RefreshCw, label: 'Easy Returns', sub: '30-day policy' },
               ].map(({ icon: Icon, label, sub }) => (
